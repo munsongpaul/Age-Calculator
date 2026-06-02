@@ -3,38 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator - Exact Age & Date Tool</title>
-    </head>
+    <title>Age Calculator - Exact Chronological Age & Date Tool</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            background: #fff;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        h1 { color: #2c3e50; margin-bottom: 25px; font-size: 28px; }
+        label { font-weight: bold; display: block; margin-bottom: 10px; color: #555; }
+        input[type="date"] {
+            width: 80%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #3498db;
+            border-radius: 6px;
+            outline: none;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        .calc-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .calc-btn:hover { background-color: #2980b9; }
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fcfcfc;
+            border-radius: 8px;
+            border-left: 5px solid #2ecc71;
+            text-align: left;
+            display: none;
+        }
+        .result-item { font-size: 18px; margin: 8px 0; color: #2c3e50; }
+        .result-item span { font-weight: bold; color: #2ecc71; }
+        .content-section {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            line-height: 1.7;
+            text-align: left;
+        }
+        .content-section h2 { color: #2c3e50; font-size: 20px; margin-top: 20px; }
+        .content-section p, .content-section li { color: #555; font-size: 15px; }
+    </style>
+</head>
 <body>
 
-    <div class="calculator-container">
+    <div class="container">
         <h1>Exact Age Calculator</h1>
+        <label for="birthdate">Select Your Date of Birth:</label>
         <input type="date" id="birthdate">
-        <button onclick="calculateAge()">Calculate Age</button>
-        <div id="results"></div>
+        <br>
+        <button class="calc-btn" onclick="calculateAge()">Calculate Age</button>
+
+        <div class="result-box" id="resultBox">
+            <div class="result-item" id="yearsResult">Years: <span>0</span></div>
+            <div class="result-item" id="monthsResult">Months: <span>0</span></div>
+            <div class="result-item" id="daysResult">Days: <span>0</span></div>
+            <div class="result-item" id="totalDaysResult">Total Days Lived: <span>0</span></div>
+        </div>
     </div>
 
     <div class="content-section">
-        <h2>About Our Age Calculator</h2>
-        <p>Our online Age Calculator provides your precise chronological age in years, months, weeks, days, hours, and seconds. Whether you are filling out official documentation, checking eligibility for an exam, or just curious about your exact lifespan milestones, our tool processes the data instantly right inside your browser.</p>
+        <h2>About Our Exact Age Calculator</h2>
+        <p>Our online Age Calculator provides your precise chronological age layout in years, months, and days. Whether you are validating administrative details, checking age requirements for academic certifications, or simply tracking personal life parameters, our toolkit solves date math computations effortlessly inside your browser framework.</p>
 
-        <h2>How Chronological Age is Calculated</h2>
-        <p>While counting years is simple, calculating precise age requires adjusting for leap years (years with 366 days) and varying month lengths (28, 30, or 31 days). Our algorithm automatically factors in these gregorian calendar anomalies to give you a 100% accurate breakdown down to the exact second.</p>
+        <h2>How Chronological Age is Evaluated</h2>
+        <p>While counting birthdays seems elementary, running historical date differences requires evaluating leap-year cycles (366 days per track) and varying calendar month configurations (ranging from 28 to 31 intervals). This native script engine computes individual month thresholds relative to the current calendar timestamp to output absolute accurate totals.</p>
 
-        <h2>Common Use Cases for Date Calculators</h2>
+        <h2>Common Use Contexts</h2>
         <ul>
-            <li><strong>Human Resources & Legal:</strong> Verifying exact retirement dates, employment duration, or legal age compliance.</li>
-            <li><strong>Health & Fitness:</strong> Tracking a baby's age in precise weeks or calculating gestation periods.</li>
-            <li><strong>Project Management:</strong> Using the date addition tool to determine project deadlines exactly 60 or 90 days from today.</li>
+            <li><strong>Employment Compliance:</strong> Confirming precise legal retirement age markers or structural work histories.</li>
+            <li><strong>Biometrics & Milestones:</strong> Tracking critical medical charts or development indexes in months and weeks.</li>
+            <li><strong>Document Verification:</strong> Pre-checking application requirements for public verification structures.</li>
         </ul>
 
         <h2>Frequently Asked Questions</h2>
-        <h3>Is my birthdate data secure?</h3>
-        <p>Yes. Our tool is built entirely using client-side JavaScript. This means your birthdate is processed locally on your device and is never uploaded, saved, or shared with any external servers.</p>
+        <h3>Is my entry recorded?</h3>
+        <p>No. Our tool relies exclusively on local client-side operations. Any values input into the module stay strictly within your target browser session and are never cataloged, hosted, or transmitted over standard external server arrays.</p>
     </div>
 
     <script>
-        // Your clean JavaScript logic for calculating dates goes here
+        function calculateAge() {
+            const birthdateInput = document.getElementById('birthdate').value;
+            if (!birthdateInput) {
+                alert("Please select a valid birthdate first.");
+                return;
+            }
+
+            const birthDate = new Date(birthdateInput);
+            const today = new Date();
+
+            if (birthDate > today) {
+                alert("Birthdate cannot be in the future!");
+                return;
+            }
+
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            const timeDiff = today.getTime() - birthDate.getTime();
+            const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+            document.getElementById('yearsResult').querySelector('span').innerText = years;
+            document.getElementById('monthsResult').querySelector('span').innerText = months;
+            document.getElementById('daysResult').querySelector('span').innerText = days;
+            document.getElementById('totalDaysResult').querySelector('span').innerText = totalDays;
+
+            document.getElementById('resultBox').style.display = 'block';
+        }
     </script>
 </body>
 </html>
