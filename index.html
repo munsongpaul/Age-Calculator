@@ -1,83 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="5jms-XyrSAsJyU73vlktKfXWgu0vjuOF4UZkxjkwrK4" />
     <meta charset="UTF-8">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3224262138568188" crossorigin="anonymous"></script>
+    <meta name="description" content="Free, fast, and precise online Age Calculator. Calculate your age in years, months, days, and total weeks lived.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator - Exact Chronological Age & Date Tool</title>
+    <title>Free Exact Age Calculator - Precise Date Tool</title>
     <style>
-        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
-        .container {max-width: 600px; background: #fff; margin: 40px auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
-        h1 { color: #2c3e50; margin-bottom: 25px; font-size: 28px; }
-        label { font-weight: bold; display: block; margin-bottom: 10px; color: #555; }
-        input[type="date"] {width: 80%; padding: 12px; font-size: 16px; border: 2px solid #3498db; border-radius: 6px; outline: none; margin-bottom: 20px; box-sizing: border-box; }
-        .calc-btn {background-color: #3498db; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background 0.3s; }
-        .calc-btn:hover { background-color: #2980b9; }
-        .result-box {margin-top: 30px; padding: 20px; background: #fcfcfc; border-radius: 8px; border-left: 5px solid #2ecc71; text-align: left; display: none; }
-        .result-item { font-size: 18px; margin: 8px 0; color: #2c3e50; }
-        .result-item span { font-weight: bold; color: #2ecc71; }
-        .content-section {max-width: 600px; margin: 40px auto; padding: 25px; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); line-height: 1.7; text-align: left; }
+        body {font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        .container {max-width: 600px; background: #fff; margin: 40px auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
+        input[type="date"] {width: 80%; padding: 12px; font-size: 16px; border: 2px solid #3498db; border-radius: 6px; margin-bottom: 20px; }
+        .calc-btn {background-color: #3498db; color: white; padding: 12px 30px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .result-box {margin-top: 30px; padding: 20px; background: #fdfdfd; border-radius: 8px; border-left: 5px solid #2ecc71; text-align: left; display: none; }
+        .footer-link { margin-top: 40px; font-size: 14px; color: #666; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>Exact Age Calculator</h1>
-    <label for="birthdate">Select Your Date of Birth:</label>
     <input type="date" id="birthdate">
     <br>
     <button class="calc-btn" onclick="calculateAge()">Calculate Age</button>
 
     <div class="result-box" id="resultBox">
-        <div class="result-item" id="yearsResult">Years: <span>0</span></div>
-        <div class="result-item" id="monthsResult">Months: <span>0</span></div>
-        <div class="result-item" id="daysResult">Days: <span>0</span></div>
-        <div class="result-item" id="totalWeeksResult">Total Weeks Lived: <span>0</span></div>
-        <div class="result-item" id="totalDaysResult">Total Days Lived: <span>0</span></div>
+        <div id="yearsResult">Years: <span></span></div>
+        <div id="monthsResult">Months: <span></span></div>
+        <div id="daysResult">Days: <span></span></div>
+        <div id="weeksResult">Total Weeks Lived: <span></span></div>
+        <div id="dayBorn">You were born on a: <span></span></div>
     </div>
 </div>
 
-<div class="content-section">
-    <h2>About Our Exact Age Calculator</h2>
-    <p>Our online Age Calculator provides your precise chronological age layout in years, months, days, and total weeks. Our tool solves date math computations effortlessly inside your browser.</p>
+<div class="footer-link">
+    Need more tools? Try our <a href="https://pdftextextractor.vercel.app/" target="_blank">PDF Text Extractor</a>
 </div>
 
 <script>
 function calculateAge() {
-    const birthdateInput = document.getElementById('birthdate').value;
-    if (!birthdateInput) { alert("Please select a valid birthdate first."); return; }
+    const val = document.getElementById('birthdate').value;
+    if (!val) return;
+    const bday = new Date(val);
+    const now = new Date();
     
-    const birthDate = new Date(birthdateInput);
-    const today = new Date();
-    if (birthDate > today) { alert("Birthdate cannot be in the future!"); return; }
+    let years = now.getFullYear() - bday.getFullYear();
+    let months = now.getMonth() - bday.getMonth();
+    let days = now.getDate() - bday.getDate();
+    if (days < 0) { months--; days += 30; }
+    if (months < 0) { years--; months += 12; }
 
-    let years = today.getFullYear() - birthDate.getFullYear();
-    let months = today.getMonth() - birthDate.getMonth();
-    let days = today.getDate() - birthDate.getDate();
-
-    if (days < 0) {
-        months--;
-        const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-        days += lastMonth.getDate();
-    }
-    if (months < 0) {
-        years--;
-        months += 12;
-    }
-
-    const timeDiff = today.getTime() - birthDate.getTime();
-    const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const totalWeeks = Math.floor(totalDays / 7);
-
+    const totalDays = Math.floor((now - bday) / (1000 * 60 * 60 * 24));
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
     document.getElementById('yearsResult').querySelector('span').innerText = years;
     document.getElementById('monthsResult').querySelector('span').innerText = months;
     document.getElementById('daysResult').querySelector('span').innerText = days;
-    document.getElementById('totalWeeksResult').querySelector('span').innerText = totalWeeks.toLocaleString();
-    document.getElementById('totalDaysResult').querySelector('span').innerText = totalDays.toLocaleString();
+    document.getElementById('weeksResult').querySelector('span').innerText = Math.floor(totalDays/7);
+    document.getElementById('dayBorn').querySelector('span').innerText = dayNames[bday.getDay()];
     document.getElementById('resultBox').style.display = 'block';
 }
 </script>
-
 </body>
 </html>
