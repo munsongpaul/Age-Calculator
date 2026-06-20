@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calculate your exact age in years, months, and days with our free, privacy-focused online age calculator.">
+    <meta name="description" content="Calculate your exact age in years, months, and days with our free, privacy-focused online age calculator. No registration required.">
     <title>Free Online Age Calculator | Exact Age & Time Difference</title>
     
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -11,10 +11,10 @@
     
     <style>
         body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: auto; padding: 20px; }
-        .tool-container { background: #f4f4f4; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center; }
+        .tool-container { background: #f9f9f9; padding: 25px; border-radius: 10px; text-align: center; border: 1px solid #ddd; }
         .faq-section { margin-top: 40px; border-top: 1px solid #ccc; padding-top: 20px; }
         footer { margin-top: 50px; text-align: center; font-size: 0.9em; color: #555; border-top: 1px solid #ccc; padding-top: 20px; }
-        footer a { color: #555; text-decoration: none; margin: 0 5px; }
+        footer a { color: #555; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
 <body>
@@ -22,7 +22,7 @@
     <h1>Age Calculator</h1>
     
     <div class="tool-container">
-        <label for="birthdate">Enter your birth date:</label><br>
+        <label for="birthdate">Enter your birth date:</label><br><br>
         <input type="date" id="birthdate">
         <button onclick="calculateAge()">Calculate Age</button>
         <h2 id="result"></h2>
@@ -31,7 +31,7 @@
     <section class="faq-section">
         <h2>Frequently Asked Questions</h2>
         <p><strong>Q: Is my birth date data stored on a server?</strong><br>
-        A: No, this calculation is performed entirely locally in your web browser. Your data is private.</p>
+        A: No, this calculation is performed entirely locally in your web browser. Your data is 100% private.</p>
         <p><strong>Q: Is this tool free to use?</strong><br>
         A: Yes, this is a free, privacy-first utility tool provided for your convenience.</p>
     </section>
@@ -46,7 +46,9 @@
 
     <script>
         function calculateAge() {
-            const birthdate = new Date(document.getElementById('birthdate').value);
+            const birthdateInput = document.getElementById('birthdate').value;
+            if (!birthdateInput) { alert("Please enter a valid date."); return; }
+            const birthdate = new Date(birthdateInput);
             const today = new Date();
             let age = today.getFullYear() - birthdate.getFullYear();
             const m = today.getMonth() - birthdate.getMonth();
